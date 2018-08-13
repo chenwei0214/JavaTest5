@@ -9,7 +9,6 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
-
   exam1:
     container_name: exam1
     build: ./java

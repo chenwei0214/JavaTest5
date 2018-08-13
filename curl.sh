@@ -29,9 +29,7 @@ curl -X POST \
 curl -X DELETE \
   http://localhost:8080/user/delete \
   -H 'Cache-Control: no-cache' \
-  -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' \
-  -F id=1 \
-  -F =
+  -H 'Cookie: id=1'
 
 # user login
 curl -X POST \
@@ -42,6 +40,10 @@ curl -X POST \
   -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' \
   -F name=MARY \
   -F password=SMITH
+
+
+
+
 
 #film page
 curl -X GET \
