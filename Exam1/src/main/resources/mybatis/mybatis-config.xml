@@ -5,13 +5,10 @@
 
     <settings>
         <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
-
     <typeAliases>
         <package name="com.hand.infra.dataobject"/>
     </typeAliases>
 
-  <!--  <plugins>
-        <plugin interceptor="com.hand.infra.config.SqlCostTimeInterceptor"/>
-    </plugins>-->
 </configuration>

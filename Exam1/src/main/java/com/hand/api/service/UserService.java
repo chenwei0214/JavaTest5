@@ -5,9 +5,11 @@ import com.hand.infra.dataobject.UserDO;
 
 public interface UserService {
 
-    void createUser(UserDO userDO);
+    long create(UserDO userDO);
 
-    PageInfo<UserDO> getAll();
+    UserDO update(UserDO userDO);
+
+    void delete(Long id);
 
     UserDO getById(Long id);
 }

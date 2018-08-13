@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  mysql:
+    container_name: mysql
+    build: ./mysql
+    image: weibaoer/mysql:5.6
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  exam1:
+    container_name: exam1
+    build: ./java
+    image: weibaoer/exam1:v1
+    ports:
+      - "8080:8080"
+    environment:
+      USERNAME: "root"
+      PASSWORD: "root"
+      MYSQL_IP: mysql
+      MYSQL_PORT: 3306
+    depends_on:
+      - mysql
+    links:
+      - mysql
+

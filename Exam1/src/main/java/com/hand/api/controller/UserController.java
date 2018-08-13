@@ -1,52 +1,62 @@
 package com.hand.api.controller;
 
+import java.util.List;
 import javax.annotation.Resource;
 
 import com.hand.api.service.UserService;
+import com.hand.infra.dataobject.CustomerDO;
 import com.hand.infra.dataobject.UserDO;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
+import com.hand.infra.mapper.CustomerMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController {
 
-    @Value("${hello}")
-    private String hello;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Resource
     private UserService userService;
 
+    @Resource
+    private CustomerMapper customerMapper;
 
-    @RequestMapping("/info/{id}")
-    @ResponseBody
-    public UserDO getUser(@PathVariable Long id) {
-        return userService.getById(id);
+
+    @PutMapping("/add")
+    public Long addUser(@RequestBody UserDO userDO) {
+        long id = userService.create(userDO);
+        logger.error("add user:{}", userDO);
+        return id;
     }
 
-    @RequestMapping("/add")
-    @ResponseBody
-    public String addUser() {
-        UserDO userDO = new UserDO();
-        userDO.setUsername("zhangsan");
-        userDO.setPassword("12345");
-        userService.createUser(userDO);
-        return "add user ok";
+    @PostMapping("/update")
+    public UserDO updateUser(@RequestBody UserDO userDO) {
+        userService.update(userDO);
+        UserDO user = userService.getById(userDO.getId());
+        logger.error("update user:{}", user);
+        return user;
     }
 
-    @PostMapping("/show")
-    @ResponseBody
-    public UserDO showUser(@RequestParam("q") String q, @RequestBody UserDO userDO) {
-        System.out.println(q);
-        return userDO;
+    @DeleteMapping("/delete")
+    public void delUser(@CookieValue("id") Long id) {
+        UserDO userDO = userService.getById(id);
+        userService.delete(id);
+        logger.error("del user:{}", userDO);
     }
 
-    @RequestMapping("/redirect")
-    public String testRedirect(){
-        System.out.println(hello);
-        return "redirect:/user/info/1";
+    @PostMapping("/login")
+    public String login(String name, String password) {
+        CustomerDO customerDO = new CustomerDO();
+        customerDO.setFirstName(name);
+        customerDO.setLastName(password);
+        List<CustomerDO> customerDOS = customerMapper.select(customerDO);
+        if (customerDOS != null && customerDOS.size() > 0) {
+            return "login success";
+        }
+        logger.error("user login:{}:","username:"+name+"password:"+password);
+        return "login fail";
     }
-
 
 }

@@ -1,0 +1,24 @@
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://${MYSQL_IP:localhost}:${MYSQL_PORT:3306}/sakila?characterEncoding=utf-8&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    username: ${USERNAME:root}
+    password: ${PASSWORD:root}
+server:
+  port: 8080
+pagehelper:
+  supportMethodsArguments: true
+  reasonable: true
+  helperDialect: mysql
+  params: count=countSql
+mybatis:
+  typeAliasesPackage: com.hand.infra.dataobject
+  config-location: classpath:/mybatis/mybatis-config.xml
+  mapperLocations: classpath:/mapper/*.xml
+
+logging:
+  file: ./logs/info.log
+  level:
+    com.hand.api.controller: error
