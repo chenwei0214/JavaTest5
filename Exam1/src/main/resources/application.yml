@@ -19,6 +19,5 @@ mybatis:
   mapperLocations: classpath:/mapper/*.xml
 
 logging:
-  file: ./logs/info.log
   level:
-    com.hand.api.controller: error
+    root: error
