@@ -55,8 +55,15 @@ public class UserController {
         if (customerDOS != null && customerDOS.size() > 0) {
             return "login success";
         }
-        logger.error("user login:{}:","username:"+name+"password:"+password);
+        logger.error("user login:{}:", "username:" + name + "password:" + password);
         return "login fail";
+    }
+
+    @GetMapping("/info")
+    public UserDO getUserInfo(Long id,UserDO userDO) {
+        logger.error("id:{}",id);
+        userDO.setId(id);
+        return userDO;
     }
 
 }
