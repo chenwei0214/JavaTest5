@@ -12,7 +12,6 @@ public class CustomHandlerMethodArgumentResolver implements HandlerMethodArgumen
 
     @Override
     public boolean supportsParameter(MethodParameter methodParameter) {
-
         return methodParameter.getParameterType().equals(Page.class);
     }
 
