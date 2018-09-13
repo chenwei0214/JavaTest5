@@ -21,7 +21,7 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public int create(FilmDO filmDO) {
-        filmDO.setLanguageId(Integer.parseInt("1"));
+        //filmDO.setLanguageId(Integer.parseInt("1"));
         filmDO.setLastUpdate(new Date());
         filmDO.setLength(4);
         filmDO.setReleaseYear(2018);
